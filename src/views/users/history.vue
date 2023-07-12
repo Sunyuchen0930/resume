@@ -52,19 +52,11 @@
             {{ row.patentId > 5 ? '查看估值报告' : '查看专利详情' }}
           </template>
         </el-table-column>
-        <!--        <el-table-column align="center" class-name="small-padding fixed-width" label="操作" width="130">-->
-        <!--          <template slot-scope="row">-->
-        <!--            <el-button size="mini" type="danger" @click="unClaimClick(row)">-->
-        <!--              取消认领-->
-        <!--            </el-button>-->
-        <!--          </template>-->
-        <!--        </el-table-column>-->
+
       </el-table>
 
     </div>
-    <!--    <div style="width: 300px">-->
-    <!--      <PatentRecommend />-->
-    <!--    </div>-->
+
   </div>
 </template>
 

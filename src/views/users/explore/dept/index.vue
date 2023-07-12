@@ -237,13 +237,13 @@
         <el-table-column align="center" class-name="small-padding fixed-width" label="操作" width="280">
           <template slot-scope="{row}">
             <el-button
-              v-if="row.ExamineStatus === '已撤销' || row.ExamineStatus === '已驳回' && (row.ExamineStatus === '已完成' || row.MemType === '非组员')"
+              v-if="row.ExamineStatus === '已撤销' || row.ExamineStatus === '已驳回' && (row.ExamineStatus === '已完成' || row.MemType === '非组员') || (row.ExamineStatus === '已完成' && row.MemType === '非组员')"
               size="mini"
               type="primary"
               :disabled="row.memStatus ==='申请退出团队'"
               @click="ReJoinDept(row)"
             >
-              再次申请
+              再次申请加入
             </el-button>
             <el-button
               v-if="row.ExamineStatus === '已驳回' || row.ExamineStatus === '未审核' || row.ExamineStatus === '处理中'"
@@ -252,11 +252,11 @@
               :disabled="row.memStatus ==='申请退出团队'"
               @click="CancelJoinDept(row)"
             >
-              撤销
+              撤销申请加入
             </el-button>
 
             <el-button
-              v-if="(row.ExamineStatus === '已完成' || row.MemType === '组员') && row.memStatus !=='申请退出团队'"
+              v-if="(row.ExamineStatus === '已完成' && row.MemType === '组员') && row.memStatus !=='申请退出团队'"
               size="mini"
               type="warning"
               @click="ExitDept(row)"
@@ -413,7 +413,7 @@ export default {
     back() {
       this.ifmember = false
       this.ifapply = false
-      this.queryid = ''
+      this.ifbtn = false
       this.getList()
     },
     flash() {

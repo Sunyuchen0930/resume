@@ -43,7 +43,7 @@ export default {
       }
 
       this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
-      this.levelList[0].meta.title = '专利管理系统'
+      this.levelList[0].meta.title = '智能简历系统'
     },
     isDashboard(route) {
       const name = route && route.name

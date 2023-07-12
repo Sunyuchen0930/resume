@@ -3,7 +3,7 @@
     <div class="header">
       <div class="searchBox">
         <div class="searchHeader">
-          <h1 style="color: black;text-shadow: 3px 3px 3px #ccc;">专利咨询平台</h1>
+          <h1 style="color: black;text-shadow: 3px 3px 3px #ccc;">岗位咨询平台</h1>
           <div class="searchBoxInput">
             <input
               v-model="query"

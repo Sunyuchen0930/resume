@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function login(data) {
   return request({
-    url: '/login',
+    url: '/user/login',
     method: 'post',
     data
   })
@@ -10,7 +10,7 @@ export function login(data) {
 
 export function getInfo() {
   return request({
-    url: '/getinfo',
+    url: '/user/get',
     method: 'get'
   })
 }
@@ -31,7 +31,7 @@ export function getCaptcha() {
 
 export function register(data) {
   return request({
-    url: '/register',
+    url: '/user/register',
     method: 'post',
     data
   })
@@ -39,7 +39,7 @@ export function register(data) {
 
 export function updateInfo(data) {
   return request({
-    url: '/updateinfo',
+    url: '/user/updateinfo',
     method: 'put',
     data
   })

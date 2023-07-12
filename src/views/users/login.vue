@@ -4,14 +4,14 @@
       <div style="width: 45%;display: flex;flex-direction: column;align-items:center;">
         <div style="display: flex;flex-direction: column;align-items: flex-start;">
           <strong style="color: white;font-size: 54px;letter-spacing: 3.81px;font-weight: 700;">
-            IPTB
+            IRAP
           </strong>
-          <strong style="color: white;font-size: 54px;letter-spacing: 0;font-weight: 700;">知识产权转化手册</strong>
+          <strong style="color: white;font-size: 49px;letter-spacing: 0;font-weight: 600;">智能简历解析平台</strong>
           <strong style="color: white;font-size: 28px;letter-spacing: 3.81px;font-weight: 700;margin-top: 20px">
-            Intellectual Property Transfer Book
+            Intelligence Resume Analysis Plat
           </strong>
           <div style="color: white;font-size: 32px;letter-spacing: 3.81px;font-weight: 300;margin-top: 60px">
-            科研工作者的的IP平台
+            求职者的贴心手册
           </div>
 
         </div>
@@ -22,7 +22,7 @@
           </div>
           <div style="font-size: 14px;color:gray;margin: 20px 0 20px 0">
             没有账号？
-            <router-link style="color:#0093fa;cursor: pointer" target="_blank" to="/register">注册</router-link>
+            <router-link style="color:#0093fa;cursor: pointer" to="/register">注册</router-link>
           </div>
           <el-form-item class="form-item" label="用户名" prop="username">
             <el-input v-model="ruleForm.username" class="form-input" placeholder="请输入用户名" />
@@ -52,12 +52,11 @@
   </div>
 </template>
 <script>
-
+import { login } from '@/api/user'
 export default {
 
   data() {
     const notEmptyValidator = (rule, value, callback) => {
-      console.log(rule)
       if (value === '') {
         callback(new Error(`${rule.fullField}不能为空`))
       } else {
@@ -68,8 +67,7 @@ export default {
       ruleForm: {
         username: '',
         password: '',
-        code: 'string',
-        uuid: 'string'
+        role: 0
       },
       rules: {
         username: [
@@ -85,17 +83,21 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$store.dispatch('user/login', this.ruleForm).then(() => {
-            this.$message({
-              message: '登录成功',
-              type: 'success'
-            })
-            this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
-          }).catch(error => {
-            this.$message({
-              message: error,
-              type: 'error'
-            })
+          login(this.ruleForm).then(res => {
+            this.$router.push('/index')
+            if (res.data.code === 1000) {
+              this.$message({
+                message: '登录成功',
+                type: 'success'
+              })
+            } else {
+              this.$message({
+                message: res.data.message,
+                type: 'error'
+              })
+            }
+          }).catch(err => {
+            this.$message.error(err)
           })
         } else {
           console.log('error submit!!')
@@ -115,7 +117,7 @@ export default {
 <style scoped>
 .container {
   height: 100vh;
-  background: url('https://passport.baidu.com/static/passpc-account/img/reg_bg_min.jpg') no-repeat;
+  background: url('https://pic.rmb.bdstatic.com/bjh/news/0c9cb3149ad5f8ee1858a4b7566839ca.jpeg') no-repeat;
   background-size: cover;
   display: flex;
   flex-direction: row;

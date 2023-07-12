@@ -1,12 +1,12 @@
+<!-- eslint-disable vue/no-unused-vars -->
 <template>
-
   <div class="app-container" style="display: flex;flex-direction: row">
     <div style="width: 100% ;">
       <div class="filter-container">
         <el-input
           v-model="queryid"
           class="filter-item"
-          placeholder="团队名称"
+          placeholder="岗位名称"
           size="small"
           style="width: 200px;margin-right: 10px"
         />
@@ -60,44 +60,50 @@
           border-radius: 10px!important;  "
       >
 
-        <el-table-column align="center" label="团队ID" prop="id" sortable="custom" width="100">
+        <el-table-column align="center" label="职位ID" prop="id" width="100">
           <template slot-scope="{row}">
-            <span>{{ row.deptId }}</span>
+            <span>{{ 123 }}</span>
+            <!-- row.deptId -->
           </template>
         </el-table-column>
 
-        <el-table-column align="center" label="用户身份" min-width="150px">
+        <el-table-column align="center" label="职位名称" min-width="100px">
           <template slot-scope="{row}">
-            <span class="link-type">{{ row.MemType }}</span>
+            <span class="link-type">{{ 123 }}</span>
           </template>
 
         </el-table-column>
 
-        <el-table-column align="center" label="申请内容" width="110px">
+        <el-table-column align="center" label="部门" width="100px">
           <template slot-scope="{row}">
-            <span>{{ row.memStatus }}</span>
+            <span>{{ 123 }}</span>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="申请时间" sortable="custom" width="180px">
+        <el-table-column align="center" label="是否校招" width="100px">
           <template slot-scope="{row}">
-            <span>{{ row.createdAt }}</span>
+            <span>{{ 123 }}</span>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="审核状态" min-width="90px">
+        <el-table-column align="center" label="是否实习" min-width="90px">
           <template slot-scope="{row}">
-            <span class="link-type"> {{ row.ExamineStatus }} </span>
+            <span class="link-type"> {{ 123 }} </span>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="最后更新时间" sortable="custom" width="180px">
+        <el-table-column align="center" label="职位类别" width="180px">
           <template slot-scope="{row}">
-            <span>{{ row.updatedAt }}</span>
+            <span>{{ 2 }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="职位简介" width="180px">
+          <template slot-scope="{row}">
+            <span>{{ 2 }}</span>
           </template>
         </el-table-column>
 
         <el-table-column align="center" class-name="small-padding fixed-width" label="操作" width="280">
           <template slot-scope="{row}">
+            <!-- v-if="row.ExamineStatus === '已撤销'" -->
             <el-button
-              v-if="row.ExamineStatus === '已撤销' || row.ExamineStatus === '已驳回' && (row.ExamineStatus === '已完成' || row.MemType === '非组员')"
 
               size="mini"
               type="primary"
@@ -106,7 +112,7 @@
               再次申请
             </el-button>
             <el-button
-              v-if="row.ExamineStatus === '已驳回' || row.ExamineStatus === '未审核' || row.ExamineStatus === '处理中'"
+
               size="mini"
               type="danger"
               :disabled="row.memStatus ==='申请退出团队'"
@@ -160,7 +166,7 @@ export default {
       centerDialogVisible: false,
       a: 0,
       list: null,
-      listLoading: true,
+      // listLoading: true,
       listQuery: {
         page: 1,
         limit: 20,
@@ -178,7 +184,7 @@ export default {
   },
   methods: {
     getList() {
-      this.listLoading = true
+      // this.listLoading = true
       getDeptRELAUser().then(response => {
         this.list = response.data.data
         for (var i = 0; i < this.list.length; i++) {
@@ -214,13 +220,13 @@ export default {
           type: 'success',
           duration: 1000
         })
+        this.getList()
       })
     },
 
     back() {
       this.ifpatent = false
       this.ifquery = false
-      this.queryid = ''
       this.getList()
     },
     flash() {

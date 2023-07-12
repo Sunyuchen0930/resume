@@ -4,8 +4,8 @@
     <el-form ref="ruleForm" :model="ruleForm" :rules="rules" class="form">
       <div style="font-size: 35px;font-weight: bold;margin-bottom: 15px;">欢迎注册
       </div>
-      <div style="font-size: 14px;color:gray;margin: 20px 0 20px 0">
-        已有账号？<span style="color:#0093fa;cursor: pointer" @click="login">登录</span>
+      <div style="font-size: 14px;color:gray;margin: 20px 0 15px 0">
+        已有账号？<span style="color:#0093fa;cursor: pointer" @click="login()">登录</span>
       </div>
       <el-form-item class="form-item" label="用户名" prop="username">
         <el-input v-model="ruleForm.username" class="form-input" placeholder="请设置用户名" />
@@ -24,6 +24,24 @@
           v-popover:popover
           class="form-input"
           placeholder="请设置登录密码"
+          type="password"
+        />
+      </el-form-item>
+
+      <el-popover
+        ref="popover"
+        placement="top-end"
+        trigger="focus"
+        width="300"
+      >
+        长度为8~14个字符<br>字母/数字以及标点行号全少包含2种
+      </el-popover>
+      <el-form-item class="form-item" label="重复密码" prop="password">
+        <el-input
+          v-model="ruleForm.repassword"
+          v-popover:popover
+          class="form-input"
+          placeholder="请再一次登录密码"
           type="password"
         />
       </el-form-item>
@@ -50,7 +68,6 @@ export default {
   },
   data() {
     const notEmptyValidator = (rule, value, callback) => {
-      console.log(rule)
       if (value === '') {
         callback(new Error(`${rule.fullField}不能为空`))
       } else {
@@ -60,7 +77,8 @@ export default {
     return {
       ruleForm: {
         username: '',
-        password: ''
+        password: '',
+        repassword: ''
       },
       rules: {
         username: [
@@ -69,25 +87,31 @@ export default {
         password: [
           { validator: notEmptyValidator, trigger: 'blur', fullField: '密码' },
           { min: 8, max: 14, message: '长度在 8 到 14 个字符', trigger: 'blur' }
+        ],
+        repassword: [
+          { validator: notEmptyValidator, trigger: 'blur', fullField: '重复密码' },
+          { min: 8, max: 14, message: '长度在 8 到 14 个字符', trigger: 'blur' }
         ]
       }
     }
   },
   methods: {
     submitForm(formName) {
-      const self = this
+      console.log(this.ruleForm)
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          console.log(this.ruleForm)
           register(this.ruleForm).then(res => {
-            if (res.data.code === 200) {
+            console.log(res)
+            if (res.data.code === 1000) {
               this.$message({
                 message: '注册成功',
                 type: 'success'
               })
-              self.$refs.loginRef.show()
+              window.open('/login', '_blank')
             } else {
               this.$message({
-                message: res.data.msg,
+                message: res.data.message,
                 type: 'error'
               })
             }
@@ -104,7 +128,8 @@ export default {
       this.$refs[formName].resetFields()
     },
     login() {
-      this.$refs.loginRef.show()
+      // this.$router.push('/login')
+      window.open('/login', '_blank')
     }
   }
 }
@@ -112,7 +137,7 @@ export default {
 <style scoped>
 .container {
   height: 100vh;
-  background: url('https://passport.baidu.com/static/passpc-account/img/reg_bg_min.jpg') no-repeat;
+  background: url('https://pic.rmb.bdstatic.com/bjh/news/0c9cb3149ad5f8ee1858a4b7566839ca.jpeg') no-repeat;
   background-size: cover;
   display: flex;
   flex-direction: row;
