@@ -24,9 +24,7 @@ export const constantRoutes = [{
     meta: { title: '首页', icon: 'el-icon-s-shop', affix: true }
   }]
 },
-{
-  path: '/index', component: () => import('@/views/users/dashboard/index')
-},
+
 {
   path: '/login', component: () => import('@/views/users/login')
 },

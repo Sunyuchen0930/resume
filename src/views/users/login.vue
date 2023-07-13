@@ -84,7 +84,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           login(this.ruleForm).then(res => {
-            this.$router.push('/index')
+            this.$router.push('/')
             if (res.data.code === 1000) {
               this.$message({
                 message: '登录成功',
